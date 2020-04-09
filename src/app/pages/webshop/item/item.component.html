@@ -1,0 +1,6 @@
+<div class="item">
+  <p>Titel: {{ item.name }}</p>
+  <p>Omschrijving: {{ item.desciption }}</p>
+  <img src="{{ item.imagePath }}" alt="Foto van {{ item.name }}" />
+  <p *ngFor="let tag of item.tags"> {{ tag }} </p>
+</div>
