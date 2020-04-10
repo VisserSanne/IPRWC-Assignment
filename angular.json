@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "New": {
+    "GemstoneWebshop": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,18 +62,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "New:build"
+            "browserTarget": "GemstoneWebshop:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "New:build:production"
+              "browserTarget": "GemstoneWebshop:build:production",
+              
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "New:build"
+            "browserTarget": "GemstoneWebshop:build"
           }
         },
         "test": {
@@ -103,11 +104,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "New:serve"
+            "devServerTarget": "GemstoneWebshop:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "New:serve:production"
+              "devServerTarget": "GemstoneWebshop:serve:production"
             }
           }
         }
