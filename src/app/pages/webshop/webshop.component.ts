@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Item } from "./item/Item.model";
+import { DataService } from "src/app/data.service";
 
 @Component({
   selector: "app-webshop",
@@ -8,9 +9,11 @@ import { Item } from "./item/Item.model";
 })
 export class WebshopComponent {
   // ToDo: Hier items inladen vanuit de firebase
-  public items: Item[] = [
-    new Item("Amathist", "Super mooi", "", ["amathist"]),
-    new Item("Rozenkwarts", "Roze", "", ["roze"]),
-    new Item("Fluoriet", "In alle kleuren van de regenboog", "", ["Groen"])
-  ];
+  public items: Item[] = [];
+
+  constructor(private dataservice: DataService) {
+    this.dataservice
+      .getItems()
+      .subscribe(itemArray=> this.items = itemArray.map(item=>Object.assign(new Item(),item)));
+  }
 }

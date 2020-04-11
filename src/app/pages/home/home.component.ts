@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { DataService } from "src/app/data.service";
 
 @Component({
@@ -10,7 +10,7 @@ export class HomeComponent {
   test: Object;
 
   constructor(private dataservice: DataService) {
-    this.dataservice
+    this.test = this.dataservice
       .getHello()
       .subscribe(event => (this.test = event["message"]));
   }

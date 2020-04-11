@@ -5,10 +5,10 @@ export class Item {
   public tags: Array<String>;
 
   constructor(
-    name: String,
-    desciption: String,
-    imagePath: String,
-    tags: Array<String>
+    name?: String,
+    desciption?: String,
+    imagePath?: String,
+    tags?: Array<String>
   ) {
     this.name = name;
     this.desciption = desciption;
