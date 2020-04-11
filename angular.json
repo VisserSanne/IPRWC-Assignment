@@ -67,7 +67,6 @@
           "configurations": {
             "production": {
               "browserTarget": "GemstoneWebshop:build:production"
-              
             }
           }
         },
