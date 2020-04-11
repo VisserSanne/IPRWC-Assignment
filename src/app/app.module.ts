@@ -12,6 +12,7 @@ import { GemstoneFunctionsComponent } from "./pages/gemstone-functions/gemstone-
 import { ItemComponent } from "./pages/webshop/item/item.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { DataService } from "./data.service";
+import { Four0FourComponent } from "./pages/404/404.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DataService } from "./data.service";
     WebshopComponent,
     GemstoneFunctionsComponent,
     ItemComponent,
-    LoginComponent
+    LoginComponent,
+    Four0FourComponent
   ],
   imports: [
     BrowserModule,

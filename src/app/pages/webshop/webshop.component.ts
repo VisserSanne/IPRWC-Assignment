@@ -12,8 +12,6 @@ export class WebshopComponent {
   public items: Item[] = [];
 
   constructor(private dataservice: DataService) {
-    this.dataservice
-      .getItems()
-      .subscribe(itemArray=> this.items = itemArray.map(item=>Object.assign(new Item(),item)));
+    this.dataservice.getItems().subscribe(items => (this.items = items));
   }
 }

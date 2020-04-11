@@ -4,15 +4,11 @@ import { HomeComponent } from "./pages/home/home.component";
 import { WebshopComponent } from "./pages/webshop/webshop.component";
 import { GemstoneFunctionsComponent } from "./pages/gemstone-functions/gemstone-functions.component";
 import { LoginComponent } from "./pages/login/login.component";
+import { Four0FourComponent } from "./pages/404/404.component";
 
 const appRoutes: Routes = [
   {
     path: "",
-    redirectTo: "/homepage",
-    pathMatch: "full"
-  },
-  {
-    path: "homepage",
     component: HomeComponent
   },
   {
@@ -26,6 +22,10 @@ const appRoutes: Routes = [
   {
     path: "loginpage",
     component: LoginComponent
+  },
+  {
+    path: "**",
+    component: Four0FourComponent
   }
 ];
 

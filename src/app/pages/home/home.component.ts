@@ -7,11 +7,9 @@ import { DataService } from "src/app/data.service";
   styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent {
-  test: Object;
+  test: String;
 
   constructor(private dataservice: DataService) {
-    this.test = this.dataservice
-      .getHello()
-      .subscribe(event => (this.test = event["message"]));
+    this.dataservice.getHello().subscribe(message => (this.test = message));
   }
 }
