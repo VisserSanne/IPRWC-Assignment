@@ -11,7 +11,7 @@ import { WebshopComponent } from "./pages/webshop/webshop.component";
 import { GemstoneFunctionsComponent } from "./pages/gemstone-functions/gemstone-functions.component";
 import { ItemComponent } from "./pages/webshop/item/item.component";
 import { LoginComponent } from "./pages/login/login.component";
-import { DataService } from "./data.service";
+import { ItemService } from "./item.service";
 import { Four0FourComponent } from "./pages/404/404.component";
 
 @NgModule({
@@ -31,7 +31,7 @@ import { Four0FourComponent } from "./pages/404/404.component";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [DataService],
+  providers: [ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

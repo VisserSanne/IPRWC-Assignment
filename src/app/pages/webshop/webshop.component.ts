@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Item } from "./item/Item.model";
-import { DataService } from "src/app/data.service";
+import { ItemService } from "src/app/item.service";
 
 @Component({
   selector: "app-webshop",
@@ -11,7 +11,7 @@ export class WebshopComponent {
   // ToDo: Hier items inladen vanuit de firebase
   public items: Item[] = [];
 
-  constructor(private dataservice: DataService) {
+  constructor(private dataservice: ItemService) {
     this.dataservice.getItems().subscribe(items => (this.items = items));
   }
 }

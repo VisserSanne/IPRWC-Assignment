@@ -7,17 +7,8 @@ import { map } from "rxjs/operators";
 @Injectable({
   providedIn: "root"
 })
-export class DataService {
+export class ItemService {
   constructor(private http: HttpClient) {}
-
-  getHello() {
-    if (!environment.production) {
-      console.log("hoi dev");
-    }
-    return this.http
-      .get(`${environment.API_URL}/hello`)
-      .pipe(map(event => event["message"]));
-  }
 
   getItems() {
     return this.http
