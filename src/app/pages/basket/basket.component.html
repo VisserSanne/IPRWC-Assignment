@@ -1,0 +1,17 @@
+<div class="container">
+  <div *ngIf="items != null">
+    <div *ngFor="let item of items">{{ item.name }}</div>
+  </div>
+  <div *ngIf="items == null">
+    <p>
+      Niks in het mandje! Ga naar de
+      <a [routerLink]="['/webshop']">webwinkel</a>
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div *ngFor="let item of itemRefs">
+    <p>{{ item }}</p>
+  </div>
+</div>

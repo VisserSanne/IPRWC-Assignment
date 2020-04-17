@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Item } from "./item/Item.model";
-import { ItemService } from "src/app/item.service";
+import { ItemService } from "src/app/services/item.service";
 
 @Component({
   selector: "app-webshop",

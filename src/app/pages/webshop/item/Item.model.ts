@@ -1,18 +1,19 @@
 export class Item {
-  public name: String;
-  public desciption: String;
-  public imagePath: String;
-  public tags: Array<String>;
+  public id: string;
+  public name: string;
+  public desciption: string;
+  public imagePath: string;
+  public tags: Array<string>;
 
   constructor(
-    name?: String,
-    desciption?: String,
-    imagePath?: String,
-    tags?: Array<String>
+    id?: string,
+    name?: string,
+    desciption?: string,
+    imagePath?: string
   ) {
+    this.id = id;
     this.name = name;
     this.desciption = desciption;
     this.imagePath = imagePath;
-    this.tags = tags;
   }
 }

@@ -5,6 +5,8 @@ import { WebshopComponent } from "./pages/webshop/webshop.component";
 import { GemstoneFunctionsComponent } from "./pages/gemstone-functions/gemstone-functions.component";
 import { LoginComponent } from "./pages/login/login.component";
 import { Four0FourComponent } from "./pages/404/404.component";
+import { AccountComponent } from "./pages/account/account.component";
+import { BasketComponent } from "./pages/basket/basket.component";
 
 const appRoutes: Routes = [
   {
@@ -22,6 +24,14 @@ const appRoutes: Routes = [
   {
     path: "loginpage",
     component: LoginComponent
+  },
+  {
+    path: "account",
+    component: AccountComponent
+  },
+  {
+    path: "shopping-basket",
+    component: BasketComponent
   },
   {
     path: "**",
