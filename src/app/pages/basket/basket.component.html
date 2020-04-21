@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!checkingOut">
   <h3>Winkelmand</h3>
   <p *ngIf="itemsDeleted">
     Oh nee! Een item dat in je basket zat is al verkocht.
@@ -11,7 +11,25 @@
     </button>
   </p>
   <div *ngIf="items.length > 0">
-    <div *ngFor="let item of items">{{ item.name }}</div>
+    <div class="item" *ngFor="let item of items">
+      <div class="horizontalhalf">
+        <p>{{ item.name }}</p>
+        <p>€{{ item.price }}</p>
+      </div>
+      <div class="horizontalhalf">
+        <p>{{ item.description }}</p>
+        <mat-icon
+          class="delete"
+          (click)="deleteItem(item)"
+          aria-hidden="false"
+          aria-label="edit"
+          >delete</mat-icon
+        >
+      </div>
+    </div>
+    <div class="checkout">
+      <button (click)="checkOut()" mat-raised-button>Afrekenen</button>
+    </div>
   </div>
   <div *ngIf="items.length == 0">
     <p>
@@ -20,4 +38,7 @@
       om verder te shoppen.
     </p>
   </div>
+</div>
+<div *ngIf="checkingOut">
+  <app-checkout></app-checkout>
 </div>

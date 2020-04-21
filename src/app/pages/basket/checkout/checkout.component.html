@@ -1,0 +1,40 @@
+<div *ngIf="!succes">
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <h3>Afrekenen</h3>
+    <p>
+      Adres
+    </p>
+    <mat-form-field>
+      <mat-label for="adres"> Straatnaam </mat-label>
+      <input
+        matInput
+        id="adres"
+        type="text"
+        placeholder="vb. amathistlaan"
+        name="adres"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="nummer"> Huisnummer </mat-label>
+      <input
+        matInput
+        id="nummer"
+        type="number"
+        placeholder="vb. 69"
+        name="nummer"
+        ngModel
+        required
+      />
+    </mat-form-field>
+
+    <br />
+    <button [disabled]="!form.valid" mat-raised-button>
+      Kom maar op met die edelstenen!
+    </button>
+  </form>
+</div>
+<div *ngIf="succes">
+  <h3>Alles is gelukt en je producten komen jouw kant op!</h3>
+</div>

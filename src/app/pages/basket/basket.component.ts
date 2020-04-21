@@ -1,12 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { BasketService } from "src/app/services/basket.service";
-import { ItemService } from "src/app/services/item.service";
 import { Item } from "../webshop/item/Item.model";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
-  selector: "app-home",
+  selector: "app-basket",
   templateUrl: "./basket.component.html",
   styleUrls: ["./basket.component.scss"]
 })
@@ -16,12 +14,9 @@ export class BasketComponent {
   public items: Item[] = [];
   public allItems: Item[] = [];
   public itemsDeleted: boolean = false;
+  public checkingOut: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private basketService: BasketService,
-    private itemService: ItemService
-  ) {
+  constructor(authService: AuthService, private basketService: BasketService) {
     authService.getUserSubject().subscribe(this.setUser);
   }
 
@@ -38,7 +33,7 @@ export class BasketComponent {
   itemDeleted(items: Item[]) {
     if (!items) {
       this.itemsDeleted = false;
-      this.items = items;
+      this.items = [];
     } else {
       for (let id in items) {
         let temp: Item = items[id];
@@ -51,9 +46,23 @@ export class BasketComponent {
     }
   }
 
+  deleteItem(item: Item) {
+    let newItems = [...this.items];
+    for (var i = 0; i < newItems.length; i++) {
+      if (newItems[i] === item) {
+        newItems.splice(i, 1);
+      }
+    }
+    this.basketService.updateItems(this.user.uid, newItems).subscribe();
+  }
+
   deleteUnavailableItems() {
     this.basketService.updateItems(this.user.uid, this.items).subscribe();
     this.allItems = this.items;
     this.itemsDeleted = false;
+  }
+
+  checkOut() {
+    this.checkingOut = true;
   }
 }

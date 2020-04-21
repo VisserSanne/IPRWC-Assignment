@@ -4,7 +4,6 @@
     <p>Email: info@relaxwithgems.firebaseapp.com</p>
   </div>
   <div class="subsection">
-    <a [routerLink]="['contact']">Contact</a>
     <a *ngIf="!isLoggedIn" [routerLink]="['loginpage']"
       >Inloggen of aanmelden</a
     >
@@ -26,8 +25,8 @@
   <div class="subsection">
     <a class="onHover" [routerLink]="['']">Home</a>
     <a class="onHover" [routerLink]="['webshop']">Webwinkel</a>
-    <a class="onHover" [routerLink]="['gemstone-functions']"
+    <!-- <a class="onHover" [routerLink]="['gemstone-functions']"
       >Edelstenen werking</a
-    >
+    > -->
   </div>
 </div>

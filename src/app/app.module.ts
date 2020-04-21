@@ -27,6 +27,7 @@ import { AdminComponent } from "./pages/admin/admin.component";
 import { CanActivateRouteGuard } from "./can-activate-route.guard";
 import { EditItemComponent } from "./pages/admin/edit-item/edit-item.component";
 import { HandleError } from "./services/handle-error";
+import { CheckoutComponent } from "./pages/basket/checkout/checkout.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { HandleError } from "./services/handle-error";
     BasketComponent,
     AccountComponent,
     AdminComponent,
-    EditItemComponent
+    EditItemComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

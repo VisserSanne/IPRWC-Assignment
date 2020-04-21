@@ -1,4 +1,32 @@
 .item {
-  // margin: 10px 10px;
+  margin: 5px 5px;
   width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.width {
+  width: 100%;
+  display: flex;
+  direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+mat-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+.shoppingcart:hover {
+  color: #23c8d5;
+}
+
+.omschrijving {
+  margin-right: 5px;
+  margin-top: 0px;
+}
+
+img {
+  max-width: 300px;
 }

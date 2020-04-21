@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from "@angular/core";
+import { Component, OnInit, OnChanges, ViewChild } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -8,9 +8,7 @@ import { AuthService } from "../../services/auth.service";
 })
 export class LoginComponent implements OnInit {
   public isLoggedIn = false;
-
-  email: string;
-  password: string;
+  @ViewChild("form", { static: true }) formValues;
 
   constructor(private authService: AuthService) {}
 
@@ -20,14 +18,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  signup() {
-    this.authService.signup(this.email, this.password);
-    this.email = this.password = "";
+  signup(form) {
+    this.authService.signup(form.email, form.password);
+    this.formValues.resetForm();
   }
 
-  login() {
-    this.authService.login(this.email, this.password);
-    this.email = this.password = "";
+  submit(form) {
+    this.authService.login(form.email, form.password);
+    this.formValues.resetForm();
   }
 
   logout() {

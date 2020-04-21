@@ -1,13 +1,15 @@
 .picture {
   height: 100%;
-  background-image: url("../assets/gems.png");
+  background: linear-gradient(rgba(160, 47, 98, 0.2), rgba(160, 47, 98, 0.2)),
+    url("../assets/gems.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 .background {
   height: 100%;
-  margin: 0px 30px 0px 30px;
-  background-color: rgba(225, 208, 219, 0.7);
+  max-width: 1200px;
+  margin: auto;
+  background-color: hsla(321, 15%, 90%, 0.9);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 .container {
