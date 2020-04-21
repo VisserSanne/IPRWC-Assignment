@@ -1,5 +1,5 @@
-<div class="container">
+<div>
   <h3>Jouw gegevens:</h3>
-  <p>Telefoonnummer: {{ user.phoneNumber }}</p>
+  <p *ngIf="user.phoneNumber">Telefoonnummer: {{ user.phoneNumber }}</p>
   <p>Emailadres: {{ user.email }}</p>
 </div>

@@ -1,0 +1,77 @@
+<div class="item" *ngIf="!editing">
+  <div class="horizontalhalf">
+    <div class="verticalhalf">
+      <mat-icon
+        class="edit"
+        (click)="startEdit()"
+        aria-hidden="false"
+        aria-label="edit"
+        >create</mat-icon
+      >
+      <p>{{ item.name }}</p>
+    </div>
+
+    <p>€{{ item.price }}</p>
+  </div>
+  <div class="horizontalhalf">
+    <p>{{ item.description }}</p>
+    <mat-icon
+      class="delete"
+      (click)="deleteItem()"
+      aria-hidden="false"
+      aria-label="edit"
+      >delete</mat-icon
+    >
+  </div>
+</div>
+<div *ngIf="editing">
+  <form (ngSubmit)="submit(form.value)" #form="ngForm">
+    <mat-form-field>
+      <mat-label for="name"> {{ item.name }} </mat-label>
+      <input
+        matInput
+        id="name"
+        type="text"
+        placeholder="vb. amathist"
+        name="name"
+        ngModel
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="price"> €{{ item.price }} </mat-label>
+      <input
+        matInput
+        id="price"
+        type="number"
+        placeholder="vb. 120"
+        name="price"
+        ngModel
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label for="description"> Omschrijving </mat-label>
+      <textarea
+        matInput
+        id="description"
+        type="text"
+        placeholder="{{ item.description }}"
+        name="description"
+        ngModel
+      ></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label for="imagePath"> Foto </mat-label>
+      <input
+        matInput
+        id="imagePath"
+        type="text"
+        placeholder="{{ item.imagePath }}"
+        name="imagePath"
+        ngModel
+      />
+    </mat-form-field>
+    <br />
+    <button [disabled]="!form.valid" mat-raised-button>Change</button>
+  </form>
+</div>

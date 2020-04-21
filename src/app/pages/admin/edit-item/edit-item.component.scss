@@ -1,0 +1,39 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 350px;
+
+  p {
+    margin: 8px 0px;
+  }
+}
+
+mat-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+.edit:hover {
+  color: #23c8d5;
+}
+.delete:hover {
+  color: red;
+}
+
+mat-form-field {
+  margin-right: 10px;
+}
+
+.horizontalhalf {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.verticalhalf {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

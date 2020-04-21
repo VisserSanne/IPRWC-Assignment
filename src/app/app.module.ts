@@ -22,6 +22,11 @@ import { FormsModule } from "@angular/forms";
 import { AccountComponent } from "./pages/account/account.component";
 import { TokenInterceptor } from "./services/token.interceptor";
 import { BasketService } from "./services/basket.service";
+import { MaterialModule } from "./Material.module";
+import { AdminComponent } from "./pages/admin/admin.component";
+import { CanActivateRouteGuard } from "./can-activate-route.guard";
+import { EditItemComponent } from "./pages/admin/edit-item/edit-item.component";
+import { HandleError } from "./services/handle-error";
 
 @NgModule({
   declarations: [
@@ -34,7 +39,9 @@ import { BasketService } from "./services/basket.service";
     LoginComponent,
     Four0FourComponent,
     BasketComponent,
-    AccountComponent
+    AccountComponent,
+    AdminComponent,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,
@@ -43,12 +50,15 @@ import { BasketService } from "./services/basket.service";
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   providers: [
     ItemService,
     AuthService,
     BasketService,
+    HandleError,
+    CanActivateRouteGuard,
     TokenInterceptor,
     {
       provide: HTTP_INTERCEPTORS,

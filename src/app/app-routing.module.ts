@@ -7,6 +7,8 @@ import { LoginComponent } from "./pages/login/login.component";
 import { Four0FourComponent } from "./pages/404/404.component";
 import { AccountComponent } from "./pages/account/account.component";
 import { BasketComponent } from "./pages/basket/basket.component";
+import { AdminComponent } from "./pages/admin/admin.component";
+import { CanActivateRouteGuard } from "./can-activate-route.guard";
 
 const appRoutes: Routes = [
   {
@@ -27,11 +29,18 @@ const appRoutes: Routes = [
   },
   {
     path: "account",
-    component: AccountComponent
+    component: AccountComponent,
+    canActivate: [CanActivateRouteGuard]
+  },
+  {
+    path: "admin-page",
+    component: AdminComponent,
+    canActivate: [CanActivateRouteGuard]
   },
   {
     path: "shopping-basket",
-    component: BasketComponent
+    component: BasketComponent,
+    canActivate: [CanActivateRouteGuard]
   },
   {
     path: "**",

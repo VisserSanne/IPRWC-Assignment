@@ -1,0 +1,62 @@
+<div class="container">
+  <div>
+    <app-account class="accountComponent"></app-account>
+    <app-edit-items class="item" *ngFor="let item of items" [item]="item"></app-edit-items>
+  </div>
+  <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+    <h3>Voeg hier een nieuw product toe!</h3>
+    <mat-form-field>
+      <mat-label for="name"> Titel </mat-label>
+      <input
+        matInput
+        id="name"
+        type="text"
+        placeholder="vb. amathist"
+        name="name"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label for="description"> Omschrijving </mat-label>
+      <textarea
+        matInput
+        id="description"
+        type="text"
+        placeholder="vb. diep paars"
+        name="description"
+        ngModel
+        required
+      ></textarea>
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label for="price"> Prijs </mat-label>
+      <input
+        matInput
+        id="price"
+        type="number"
+        placeholder="vb. 120"
+        name="price"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field>
+      <mat-label for="imagePath"> Foto </mat-label>
+      <input
+        matInput
+        id="imagePath"
+        type="text"
+        placeholder=""
+        name="imagePath"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <br />
+    <button [disabled]="!form.valid" mat-raised-button>Submit</button>
+  </form>
+</div>

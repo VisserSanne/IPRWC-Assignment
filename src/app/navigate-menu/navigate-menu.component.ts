@@ -9,10 +9,24 @@ import { AuthService } from "../services/auth.service";
 export class NavigateMenuComponent implements OnInit {
   public isLoggedIn = false;
 
-  constructor(private authService: AuthService) {}
+  private user: firebase.User;
+  public role: string;
+
+  constructor(private authService: AuthService) {
+    authService.getUserSubject().subscribe(async user => {
+      this.user = user;
+      if (user) {
+        await authService
+          .getRole(this.user.uid)
+          .subscribe(userRole => (this.role = userRole));
+      } else {
+        this.role = "user";
+      }
+    });
+  }
 
   ngOnInit() {
-    this.authService.isLoggedIn.subscribe(value => {
+    this.authService.isLoggedInObservable.subscribe(value => {
       this.isLoggedIn = value;
     });
   }

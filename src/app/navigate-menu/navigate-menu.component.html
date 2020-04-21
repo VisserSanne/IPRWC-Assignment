@@ -9,8 +9,13 @@
       >Inloggen of aanmelden</a
     >
     <div *ngIf="isLoggedIn">
-      <a [routerLink]="['shopping-basket']">Winkelmandje</a>
-      <a [routerLink]="['account']">Account</a>
+      <a *ngIf="role != 'admin'" [routerLink]="['shopping-basket']"
+        >Winkelmandje</a
+      >
+      <a *ngIf="role != 'admin'" [routerLink]="['account']">Account</a>
+
+      <a *ngIf="role == 'admin'" [routerLink]="['admin-page']">Adminpagina</a>
+
       <a [routerLink]="['loginpage']" (click)="logOut()">Uitloggen</a>
     </div>
   </div>

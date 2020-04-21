@@ -11,7 +11,7 @@ export class WebshopComponent {
   // ToDo: Hier items inladen vanuit de firebase
   public items: Item[] = [];
 
-  constructor(private dataservice: ItemService) {
-    this.dataservice.getItems().subscribe(items => (this.items = items));
+  constructor(private itemService: ItemService) {
+    this.itemService.getItems().subscribe(items => (this.items = items));
   }
 }

@@ -1,17 +1,23 @@
-<div class="container">
-  <div *ngIf="items != null">
+<div>
+  <h3>Winkelmand</h3>
+  <p *ngIf="itemsDeleted">
+    Oh nee! Een item dat in je basket zat is al verkocht.
+    <button
+      class="removeUnavailableItems"
+      (click)="deleteUnavailableItems()"
+      mat-raised-button
+    >
+      Oke jammer!
+    </button>
+  </p>
+  <div *ngIf="items.length > 0">
     <div *ngFor="let item of items">{{ item.name }}</div>
   </div>
-  <div *ngIf="items == null">
+  <div *ngIf="items.length == 0">
     <p>
       Niks in het mandje! Ga naar de
       <a [routerLink]="['/webshop']">webwinkel</a>
+      om verder te shoppen.
     </p>
-  </div>
-</div>
-
-<div class="container">
-  <div *ngFor="let item of itemRefs">
-    <p>{{ item }}</p>
   </div>
 </div>

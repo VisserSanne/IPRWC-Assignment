@@ -2,51 +2,57 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { Item } from "../pages/webshop/item/Item.model";
-import { map } from "rxjs/operators";
-import { from, of, Observable } from "rxjs";
+import { map, catchError, retry } from "rxjs/operators";
+import { of, Observable } from "rxjs";
+import { HandleError } from "./handle-error";
 
 @Injectable({
   providedIn: "root"
 })
 export class ItemService {
-  constructor(private http: HttpClient) {}
-
-  dummyData = [
-    new Item("1", "Amathist", "Mooie paarse steen jonguh", "/"),
-    new Item("2", "Rozenkwarts", "Mooie roze steen jonguh", "/")
-  ];
+  constructor(private http: HttpClient, private handleError: HandleError) {}
 
   getItems(): Observable<Item[]> {
     return this.http
       .get<Item[]>(`${environment.API_URL}/items`)
       .pipe(
         map(itemArray => itemArray.map(item => Object.assign(new Item(), item)))
+      )
+      .pipe(
+        catchError(err => this.handleError.handleError(err))
       );
-    // return of(this.dummyData);
   }
 
   getItem(id: string): Observable<Item> {
     return this.http
       .get<Item>(`${environment.API_URL}/items/${id}`)
-      .pipe(map(item => Object.assign(new Item(), item)));
-    // return of(this.dummyData.filter(item => item.id === id)[0]);
+      .pipe(map(item => Object.assign(new Item(), item)))
+      .pipe(
+        catchError(err => this.handleError.handleError(err))
+      );
   }
 
   createItem(item: Item): Observable<Item> {
-    this.dummyData.push(item);
-    return of(item);
+    return this.http
+      .post(`${environment.API_URL}/items`, item)
+      .pipe(map(item => Object.assign(new Item(), item)))
+      .pipe(
+        catchError(err => this.handleError.handleError(err))
+      );
   }
 
-  deleteItem(id: string): void {
-    this.dummyData = this.dummyData.filter(item => item.id !== id);
+  deleteItem(id: string) {
+    return this.http.delete(`${environment.API_URL}/items/${id}`).pipe(
+      catchError(err => this.handleError.handleError(err))
+    );
   }
 
   updateItem(item: Item): Observable<Item> {
-    const itemIndex = this.dummyData.findIndex(data => data.id === item.id);
-    if (itemIndex > -1) {
-      this.dummyData[itemIndex] = item;
-      return of(item);
-    }
-    throw "Item not found";
+    return this.http
+      .put(`${environment.API_URL}/items/${item.id}`, item)
+      .pipe(map(item => Object.assign(new Item(), item)))
+      .pipe(
+        catchError(err => this.handleError.handleError(err))
+      );
   }
 }

@@ -1,14 +1,4 @@
-.center {
-  // display: flex;
-  // justify-content: space-around;
-}
-
 .container {
-  // display: grid;
-  // grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
-  // gap: 20px;
-  // justify-self: center;
-  margin: 70px 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

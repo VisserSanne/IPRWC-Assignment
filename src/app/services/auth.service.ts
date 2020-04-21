@@ -2,30 +2,40 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AngularFireAuth } from "angularfire2/auth";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import { HandleError } from "./handle-error";
+import { catchError, retry } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
 })
 export class AuthService {
   private token: string;
-  private user = new BehaviorSubject<firebase.User>(undefined);
+  private userObjectSubject = new BehaviorSubject<firebase.User>(undefined);
   private isLoggedInSource = new BehaviorSubject<boolean>(false);
-  public isLoggedIn: Observable<boolean>;
+  public isLoggedInObservable = this.isLoggedInSource.asObservable();
+  user: firebase.User = undefined;
+  userRole: string = undefined;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.isLoggedIn = this.isLoggedInSource.asObservable();
+  constructor(
+    private firebaseAuth: AngularFireAuth,
+    private http: HttpClient,
+    private handleError: HandleError
+  ) {
     this.firebaseAuth.user.subscribe(async user => {
       if (user) {
-        this.user.next(user);
+        this.userRole = await this.getRole(user.uid).toPromise();
+        this.userObjectSubject.next(user);
         this.token = await user.getIdToken();
         this.isLoggedInSource.next(true);
       } else {
         if (this.token) {
           this.token = undefined;
         }
-        this.user.next(undefined);
+        this.userObjectSubject.next(undefined);
         this.isLoggedInSource.next(false);
       }
+      this.user = user;
     });
   }
 
@@ -50,7 +60,7 @@ export class AuthService {
   }
 
   getUserSubject() {
-    return this.user;
+    return this.userObjectSubject;
   }
 
   getToken() {
@@ -58,9 +68,19 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    if (this.getToken()) {
+    if (this.user) {
       return true;
     }
     return false;
+  }
+
+  public getRole(uid: string): Observable<string> {
+    return this.http
+      .get(`${environment.API_URL}/users/${uid}`, {
+        responseType: "text"
+      })
+      .pipe(
+        catchError(err => this.handleError.handleError(err))
+      );
   }
 }

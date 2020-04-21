@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.isLoggedIn.subscribe(value => {
+    this.authService.isLoggedInObservable.subscribe(value => {
       this.isLoggedIn = value;
     });
   }
