@@ -7,6 +7,7 @@
   <div class="width">
     <p class="omschrijving">Omschrijving: {{ item.description }}</p>
     <mat-icon
+      *ngIf="role == 'user'"
       class="shoppingcart"
       (click)="addToBasket()"
       aria-hidden="false"

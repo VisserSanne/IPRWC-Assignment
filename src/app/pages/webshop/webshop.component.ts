@@ -12,6 +12,6 @@ export class WebshopComponent {
   public items: Item[] = [];
 
   constructor(private itemService: ItemService) {
-    this.itemService.getItems().subscribe(items => (this.items = items));
+    this.itemService.itemsObservable.subscribe(items => (this.items = items));
   }
 }

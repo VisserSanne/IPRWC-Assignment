@@ -11,16 +11,23 @@ import { AuthService } from "src/app/services/auth.service";
 export class ItemComponent {
   user: firebase.User;
   @Input() item: Item;
-  items: Item[] = undefined;
+  role: string = "admin";
+  items: Item[] = [];
 
-  constructor(authService: AuthService, private basketService: BasketService) {
+  constructor(
+    private authService: AuthService,
+    private basketService: BasketService
+  ) {
     authService.getUserSubject().subscribe(this.setUser);
   }
   setUser = (user: firebase.User) => {
     this.user = user;
     if (user) {
-      this.basketService.getItems(user.uid).subscribe(items => {
-        this.items = items;
+      this.authService.getRole(user.uid).subscribe(role => (this.role = role));
+      this.basketService.itemsObservable.subscribe(items => {
+        if (items) {
+          this.items = items;
+        }
       });
     }
   };

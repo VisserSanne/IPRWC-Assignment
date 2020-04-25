@@ -1,23 +1,34 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, OnInit, ElementRef, Input } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Item } from "../webshop/item/Item.model";
 import { ItemService } from "src/app/services/item.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-admin",
   templateUrl: "./admin.component.html",
   styleUrls: ["./admin.component.scss"]
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
   @ViewChild("form", { static: true }) formValues;
   user: firebase.User;
   items: Item[] = [];
+  file: any = null;
 
-  constructor(authService: AuthService, private itemService: ItemService) {
+  @ViewChild("fileInput", { static: false })
+  fileInput: ElementRef;
+  constructor(
+    authService: AuthService,
+    private itemService: ItemService,
+    private _snackBar: MatSnackBar
+  ) {
     authService.getUserSubject().subscribe(user => {
       this.user = user;
     });
-    this.itemService.getItems().subscribe(items => (this.items = items));
+  }
+
+  ngOnInit() {
+    this.itemService.itemsObservable.subscribe(items => (this.items = items));
   }
 
   onSubmit(form) {
@@ -28,8 +39,33 @@ export class AdminComponent {
       form.price,
       form.imagePath
     );
-    console.log(item);
-    this.itemService.createItem(item).subscribe();
-    this.formValues.resetForm();
+    this.itemService.createItem(item).subscribe(
+      item => {
+        this.itemService
+          .uploadImage(item.id, this.file, "test")
+          .subscribe(() => console.log("success"));
+        this._snackBar.open(`"${item.name}" aangemaakt`, null, {
+          duration: 3000
+        });
+        this.formValues.resetForm();
+
+        this.fileInput.nativeElement.value = "";
+        this.file = null;
+      },
+      () =>
+        this._snackBar.open(
+          `"Aanmaken van ${item.name} mislukt, probeer opnieuw"`,
+          null,
+          { duration: 3000 }
+        )
+    );
+  }
+  onFileChanged(event) {
+    this.file = event.target.files[0];
+  }
+  uploadTest() {
+    this.itemService
+      .uploadImage(999, this.file)
+      .subscribe(() => console.log("success"));
   }
 }

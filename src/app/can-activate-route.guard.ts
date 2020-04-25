@@ -2,21 +2,21 @@ import { Injectable } from "@angular/core";
 import {
   CanActivate,
   ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  RouterStateSnapshot,
+  Router
 } from "@angular/router";
 import { AuthService } from "./services/auth.service";
 
 @Injectable()
 export class CanActivateRouteGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // console.log(route.routeConfig.path);
     if (route.routeConfig.path == "admin-page") {
-      return this.isAdmin(this.authService.userRole);
+      return this.isAdmin(this.authService.userRole)
+        ? true
+        : this.router.parseUrl("/");
     } else {
       return this.authService.isAuthenticated();
     }

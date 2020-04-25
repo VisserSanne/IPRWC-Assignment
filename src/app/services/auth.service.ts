@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { AngularFireAuth } from "angularfire2/auth";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { HandleError } from "./handle-error";
 import { catchError, retry } from "rxjs/operators";
 
 @Injectable({
@@ -17,11 +16,7 @@ export class AuthService {
   user: firebase.User = undefined;
   userRole: string = undefined;
 
-  constructor(
-    private firebaseAuth: AngularFireAuth,
-    private http: HttpClient,
-    private handleError: HandleError
-  ) {
+  constructor(private firebaseAuth: AngularFireAuth, private http: HttpClient) {
     this.firebaseAuth.user.subscribe(async user => {
       if (user) {
         this.userRole = await this.getRole(user.uid).toPromise();
@@ -59,6 +54,10 @@ export class AuthService {
     this.firebaseAuth.auth.signOut();
   }
 
+  createUserDB(uid: string) {
+    return this.http.post(`${environment.API_URL}/users/${uid}`, "user");
+  }
+
   getUserSubject() {
     return this.userObjectSubject;
   }
@@ -75,12 +74,8 @@ export class AuthService {
   }
 
   public getRole(uid: string): Observable<string> {
-    return this.http
-      .get(`${environment.API_URL}/users/${uid}`, {
-        responseType: "text"
-      })
-      .pipe(
-        catchError(err => this.handleError.handleError(err))
-      );
+    return this.http.get(`${environment.API_URL}/users/${uid}`, {
+      responseType: "text"
+    });
   }
 }

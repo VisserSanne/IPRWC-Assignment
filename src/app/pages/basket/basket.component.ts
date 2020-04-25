@@ -23,9 +23,11 @@ export class BasketComponent {
   setUser = (user: firebase.User) => {
     this.user = user;
     if (user) {
-      this.basketService.getItems(user.uid).subscribe(items => {
-        this.allItems = items;
-        this.itemDeleted(this.allItems);
+      this.basketService.itemsObservable.subscribe(items => {
+        if (items) {
+          this.allItems = items;
+          this.itemDeleted(this.allItems);
+        }
       });
     }
   };
@@ -54,6 +56,7 @@ export class BasketComponent {
       }
     }
     this.basketService.updateItems(this.user.uid, newItems).subscribe();
+    this.items = newItems;
   }
 
   deleteUnavailableItems() {

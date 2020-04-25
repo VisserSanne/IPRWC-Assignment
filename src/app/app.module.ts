@@ -20,14 +20,14 @@ import { AngularFireModule } from "angularfire2";
 import { AngularFireAuthModule } from "angularfire2/auth";
 import { FormsModule } from "@angular/forms";
 import { AccountComponent } from "./pages/account/account.component";
-import { TokenInterceptor } from "./services/token.interceptor";
+import { TokenErrorInterceptor } from "./services/token-error.interceptor";
 import { BasketService } from "./services/basket.service";
 import { MaterialModule } from "./Material.module";
 import { AdminComponent } from "./pages/admin/admin.component";
 import { CanActivateRouteGuard } from "./can-activate-route.guard";
 import { EditItemComponent } from "./pages/admin/edit-item/edit-item.component";
-import { HandleError } from "./services/handle-error";
 import { CheckoutComponent } from "./pages/basket/checkout/checkout.component";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -53,18 +53,18 @@ import { CheckoutComponent } from "./pages/basket/checkout/checkout.component";
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    MatSnackBarModule
   ],
   providers: [
     ItemService,
     AuthService,
     BasketService,
-    HandleError,
     CanActivateRouteGuard,
-    TokenInterceptor,
+    TokenErrorInterceptor,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: TokenErrorInterceptor,
       multi: true
     }
   ],
