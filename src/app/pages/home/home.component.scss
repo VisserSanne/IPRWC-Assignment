@@ -1,6 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .story {
   max-width: 40%;
   h2 {
     color: #a02f62;
+  }
+  img {
+    max-width: 100%;
   }
 }

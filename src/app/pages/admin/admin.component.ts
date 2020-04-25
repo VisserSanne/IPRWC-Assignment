@@ -42,7 +42,7 @@ export class AdminComponent implements OnInit {
     this.itemService.createItem(item).subscribe(
       item => {
         this.itemService
-          .uploadImage(item.id, this.file, "test")
+          .uploadImage(item.id, this.file)
           .subscribe(() => console.log("success"));
         this._snackBar.open(`"${item.name}" aangemaakt`, null, {
           duration: 3000
